@@ -62,6 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
           const SizedBox(
             height: 50,
           ),
+          const Text("Covid -19\n Tracker App",style: TextStyle(color: Colors.white,fontSize: 18),textAlign: TextAlign.center),
         ],
       ),
     );

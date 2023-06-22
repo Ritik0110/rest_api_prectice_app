@@ -1,4 +1,5 @@
 import 'package:covid_tracking_app/Services/states-services.dart';
+import 'package:covid_tracking_app/view/countries_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -13,7 +14,7 @@ class WorldStatesScreen extends StatefulWidget {
 class _WorldStatesScreenState extends State<WorldStatesScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller =
-      AnimationController(vsync: this, duration: const Duration(seconds: 4))..repeat();
+      AnimationController(vsync: this, duration: const Duration(seconds: 1))..repeat();
   @override
   void dispose() {
     // TODO: implement dispose
@@ -68,6 +69,7 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
                     elevation: 5,
                     child: Column(
                       children:  [
+                        ReusableRow(title: "Total Cases", value: int.parse(snapshot.data!.cases.toString())),
                         ReusableRow(title: "Active cases", value:int.parse(snapshot.data!.active.toString())),
                         ReusableRow(title: "Recovered cases", value: int.parse(snapshot.data!.recovered.toString())),
                         ReusableRow(title: "Deaths", value: int.parse(snapshot.data!.deaths.toString())),
@@ -76,7 +78,9 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
                   ),
                 ),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CountriesListScreen()));
+                  },
                   height: 50,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                   color: Colors.green,
