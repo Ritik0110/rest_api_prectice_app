@@ -1,5 +1,6 @@
 import 'package:covid_tracking_app/Model/CountriesListModel.dart';
 import 'package:covid_tracking_app/Services/states-services.dart';
+import 'package:covid_tracking_app/view/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -11,7 +12,7 @@ class CountriesListScreen extends StatefulWidget {
 }
 
 class _CountriesListScreenState extends State<CountriesListScreen> {
-  TextEditingController searchcontroller = TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
         child: Column(
           children: [
             TextFormField(
-              controller: searchcontroller,
+              controller: searchController,
               decoration: InputDecoration(
                   hintText: "Search Country",
                   border: OutlineInputBorder(
@@ -48,8 +49,15 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                             itemBuilder: (context, index) {
                               String name =
                                   snapshot.data![index].country.toString();
-                              if (searchcontroller.text.isEmpty) {
+                              if (searchController.text.isEmpty) {
                                 return ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailScreen(
+                                                model: snapshot.data![index])));
+                                  },
                                   leading: Image(
                                     image: NetworkImage(snapshot
                                         .data![index].countryInfo!.flag
@@ -63,8 +71,15 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                                       snapshot.data![index].cases.toString()),
                                 );
                               } else if (name.toLowerCase().contains(
-                                  searchcontroller.text.toLowerCase())) {
+                                  searchController.text.toLowerCase())) {
                                 return ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailScreen(
+                                                model: snapshot.data![index])));
+                                  },
                                   leading: Image(
                                     image: NetworkImage(snapshot
                                         .data![index].countryInfo!.flag
